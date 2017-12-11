@@ -1,0 +1,123 @@
+conky.config = {
+--  Begin Window Settings
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_transparent = true,
+	own_window_hints = 'undecorated,below,skip_taskbar,skip_pager,sticky',
+	own_window_colour = '#000000',
+	own_window_class = 'Conky',
+	own_window_title = 'Bunsen Labs Default Conky',
+	own_window_argb_visual = true,--#
+	own_window_argb_value = 50,--#
+	minimum_width = 200, minimum_height = 0,-- w|h
+	maximum_width = 260,
+	gap_x = 5,-- l|r
+	gap_y = 45,-- u|d
+	alignment = 'top_right',
+--  End Window Settings
+--  Font Settings
+	use_xft = true,
+	font = 'Monospace:Light:size=9',
+	xftalpha = 1,
+	override_utf8_locale = true,
+	uppercase = false,
+--  End Font Settings
+--  Colour Settings
+	draw_shades = false,
+	default_shade_color = '#000000',
+	draw_outline = false,
+	default_outline_color = '#000000',
+	default_color = '#b5b5b5',
+--  End Colour Settings
+--  Borders Section
+	draw_borders = false,
+	stippled_borders = 5,
+	border_inner_margin = 5,
+	border_outer_margin = 0,
+	border_width = 2,
+--  End Borders Section
+--  Miscellaneous Section
+	background = true,
+	use_spacer = 'none',
+	text_buffer_size = 6144,
+	no_buffers = true,
+	short_units = true,
+	imlib_cache_size = 0,
+	double_buffer = true,
+--  End Miscellaneous Section
+	update_interval = 1,
+};
+
+conky.text = [[
+S Y S T E M    I N F O
+${hr}
+Distribution: $alignr ${execi 1200 lsb_release -ds | awk '{print $1}'} ${execi 1200 lsb_release -ds | awk '{print $3}'}
+    Hostname: $alignr $nodename
+      Kernel: $alignr $kernel
+      Uptime: $alignr $uptime
+        Load: $alignr $loadavg
+
+R A M    U S A G E
+${hr}
+ mem: $alignr $memperc % of $memmax
+swap: $alignr $swapperc % of $swapmax
+
+D I S K    U S A G E
+${hr}
+root: $alignr ${fs_used_perc /} % of ${fs_size /}
+
+C P U    U S A G E
+${hr}
+Total: $alignr ${cpu cpu} %
+${cpugraph cpu -t -l}
+Core 0: ${cpu cpu0} % $alignr Core 1: ${cpu cpu1} %
+${cpugraph cpu0 25,110 -t -l} $alignr${cpugraph cpu1 25,110 -t -l}
+Core 2: ${cpu cpu2} % $alignr Core 3: ${cpu cpu3} %
+${cpugraph cpu2 25,110 -t -l} $alignr${cpugraph cpu3 25,110 -t -l}
+
+T E M P E R A T U R E
+${hr}
+Core 0: $alignr ${execi 10 sensors -f | grep 'Core 0' | cut -c16-22}
+Core 1: $alignr ${execi 10 sensors -f | grep 'Core 1' | cut -c16-22}
+Core 2: $alignr ${execi 10 sensors -f | grep 'Core 2' | cut -c16-22}
+Core 3: $alignr ${execi 10 sensors -f | grep 'Core 3' | cut -c16-22}
+   GPU: $alignr ${execi 10 sensors -f | grep 'GPU:' | cut -c17-24}
+   HDD: $alignr ${execpi 300 hddtemp -u f /dev/sda1 | cut -c 35-40}
+
+N E T W O R K I N G
+${hr}
+        ESSID: $alignr ${wireless_essid wlan0}
+   IP address: $alignr ${addr wlan0}
+Wireless Rate: $alignr ${wireless_bitrate wlan0}
+ Link Quality: $alignr ${wireless_link_qual_perc wlan0} %
+WiFi Download: $alignr ${downspeed wlan0}
+  WiFi Upload: $alignr ${upspeed wlan0}
+${if_existing /sys/class/net/eth0/operstate up}
+       LAN IP: $alignr ${addr eth0}
+ LAN Download:$color $alignr ${downspeed eth0}
+   LAN Upload:$color $alignr ${upspeed eth0}${endif}
+
+D A T A    U S A G E
+${hr}
+Wireless:
+   Total ▲ ${totalup wlan0} $alignr Total ▼ ${totaldown wlan0}
+${if_existing /sys/class/net/eth0/operstate up}
+Wired:
+   Total ▲ ${totalup eth0} $alignr Total ▼ ${totaldown eth0}${endif}
+
+T O P    M E M    H O G S
+${hr}
+${color #FF5555}${top_mem name 1} ${alignr} ${top mem 1} % ${color}
+${color #FFaa55}${top_mem name 2} ${alignr} ${top mem 2} % ${color}
+${color #FFff55}${top_mem name 3} ${alignr} ${top mem 3} % ${color}
+
+T O P    C P U    H O G S
+${hr}
+${color #FF5555}${top name 1} ${alignr} ${top cpu 1} % ${color}
+${color #FFaa55}${top name 2} ${alignr} ${top cpu 2} % ${color}
+${color #FFff55}${top name 3} ${alignr }${top cpu 3} % ${color}
+
+R A N D O M S
+${hr}
+Updates: ${alignr} ${execpi 3600 checkupdates | wc -l}
+]];
