@@ -48,5 +48,5 @@ Depending on your screen size, resolution and content, make sure to adjust the f
 * `font = 'Monospace:Light:size=9'` <- Should only need to adjust the size.
 
 ## What's it look like?
-![ScreenShot](https://raw.github.com/Computero/conky_config/master/Conky.png)
+![Screenshot](https://github.com/Computero/Conky/blob/master/Conky.png "ScreenShot")
 
