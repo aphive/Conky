@@ -45,4 +45,4 @@ Depending on your screen size, resolution and content, make sure to adjust the f
 * `font = 'Liberation Mono:Light:size=9'`
 
 ## What's it look like?
-![Screenshot](https://github.com/Computero/Conky/blob/master/Conky.png "ScreenShot")
+![Screenshot](https://raw.githubusercontent.com/aphive/Conky/825f3f50982d8e6cf035ba3012c40c090297c265/Conky.png)
